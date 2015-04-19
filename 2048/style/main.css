@@ -100,7 +100,7 @@ p {
   margin-bottom: 10px;
   line-height: 1.65; }
 
-body #popup a, a {
+body #overlay  a, a {
   color: #776e65;
   font-weight: bold;
   text-decoration: underline;
@@ -754,13 +754,13 @@ a.restart-button:hover {
 |=====Night Mode Styles=====|
 \***************************/
 * {
-	transition-property: background-color, color, opacity, box-shadow, text-shadow;
+	transition-property: background, color, opacity, box-shadow, text-shadow;
 	transition-duration: 1s, 1s, 1s, 1s, 0.3s;
 	transition-timing-function:ease-in-out;
-	-webkit-transition-property: background-color, color, opacity, box-shadow, text-shadow;
+	-webkit-transition-property: background, color, opacity, box-shadow, text-shadow;
 	-webkit-transition-duration: 1s, 1s, 1s, 1s, 0.3s;
 	-webkit-transition-timing-function:ease-in-out;
-	-moz-transition-property: background-color, color, opacity, box-shadow, text-shadow;
+	-moz-transition-property: background, color, opacity, box-shadow, text-shadow;
 	-moz-transition-duration: 1s, 1s, 1s, 1s, 0.3s;
 	-moz-transition-timing-function:ease-in-out;
 }
@@ -769,7 +769,7 @@ a.restart-button:hover {
   background: #001F33;
   color: #80CCFF;}
   
-  h1.night, p.night, strong.night, .tile-inner.night {
+  h1.night, p.night, html body #overlay.night p, strong.night, .tile-inner.night {
 	color:#80CCFF;
   }
   h1, p, strong, .tile-inner {
@@ -781,7 +781,7 @@ a.restart-button:hover {
   .score-container.night .score-addition.night, .best-container.night .score-addition.night {
     color: #80CCFF;}
 
-body #popup a.night, a.night {
+body #overlay a.night, a.night {
   color: #80CCFF; }
   
 .game-container.night {
@@ -850,16 +850,7 @@ body #popup a.night, a.night {
   .game-container.night {
     background: #001F33} }
 
-/*Bookmark styles*/
-#test {
-	background:rgba(0, 0, 0, 0.1);
-	margin:auto;
-	width:50%;
-	text-align:center;
-	border:1px solid #776e65;
-}
-
-#popup {
+#overlay {
 	z-index:100;
 	background:rgba(0, 0, 0, 0.5);
 	position:fixed;
@@ -870,7 +861,7 @@ body #popup a.night, a.night {
 	transition:top 0s ease 0s, background 1s;
 }
 
-#saves {
+.popup {
 	z-index:100;
 	position:fixed;
 	top:20%;
@@ -886,24 +877,116 @@ body #popup a.night, a.night {
 	overflow:hidden;
 }
 
-#popup * {
+#overlay * {
 	transition:top 0.4s ease-in-out;
 }
 
-#popup.hidden {
+#overlay.hidden {
 	background:rgba(0, 0, 0, 0);
 	top:-100%;
 	transition:top 1s ease 1s, background 1s;
 }
 
-#popup.hidden * {
+#overlay.hidden * {
 	top:-100%;
 	transition:top 0.5s ease-in-out;
 }
 
-#saves.night {
+.popup.night {
 	background:#4D7A99;
 	-webkit-box-shadow: 0px 0px 50px 10px rgba(105,105,105,0.5), inset 0px 0px 50px 0px rgba(45,90,121,1);
 	-moz-box-shadow: 0px 0px 50px 10px rgba(105,105,105,0.5), inset 0px 0px 50px 0px rgba(45,90,121,1);
 	box-shadow: 0px 0px 50px 10px rgba(105,105,105,0.5), inset 0px 0px 50px 0px rgba(45,90,121,1);
+}
+
+.popup.hidden {
+	top:-100%;
+}
+
+html body #overlay a.button {
+	display:block;
+	text-decoration:none;
+	color:rgba(255, 255, 255, 0.87);
+	font-size:1.2em;
+	padding:0.2em;
+	border-radius:0.5em;
+	position:absolute;
+	top:83%;
+	transition:background 0.4s;
+}
+
+html body #overlay a.button.okay {
+	left:40%;
+	right:40%;
+	background:#00A300;
+}
+
+html body #overlay a.button.okay:hover, html body #overlay a.button.yes:hover {
+	background:#33B533;
+	text-shadow:none;
+}
+
+html body #overlay a.button.yes {
+	left:55%;
+	right:25%;
+	background:#00A300;
+}
+
+html body #overlay a.button.no {
+	left:25%;
+	right:55%;
+	background:#A60000;
+}
+
+html body #overlay a.button.no:hover {
+	background:#AF1919;
+	text-shadow:none;
+}
+
+#overlay input[type=text] {
+	width:40%;
+	font-size:1em;
+	padding:5px;
+	border-radius:10px;
+	border:1px solid rgba(0, 0, 0, 0.26);
+	transition:box-shadow 0.4s;
+}
+
+#overlay input[type=text]:focus {
+	-webkit-box-shadow: 0px 0px 15px -5px rgba(37,164,173,1);
+	-moz-box-shadow: 0px 0px 15px -5px rgba(37,164,173,1);
+	box-shadow: 0px 0px 15px -5px rgba(37,164,173,1);
+}
+
+.popup-content {
+	width:100%;
+	height:75%;
+	overflow:hidden;
+}
+
+#bookmark-container {
+	margin:0em auto 0.5em auto;
+	background:rgba(0, 0, 0, 0.1);
+	display:block;
+	width:70%;
+	height:30%;
+}
+
+.button {
+	text-decoration:none;
+	border-radius:3px;
+	text-align:center;
+	color:#F9F6F2;
+	font-weight:bold;
+	font-size:18px;
+	display:inline-block;
+	background:#8F7A66;
+	height:40px;
+	line-height:42px;
+	margin-top:1em;
+	width:47%;
+}
+
+.button:hover {
+	text-shadow:none;
 }

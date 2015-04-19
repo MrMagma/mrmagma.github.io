@@ -6,16 +6,22 @@ function changeFavicon(href) {
 
 var modeStates = {};
 var modes = [];
-function toggleClass(c) {
+function toggleClass(c, elements) {
+	if(c === "night") {
+		if(!modeStates[c]) {
+			changeFavicon('night-favicon.ico');
+		} else {
+			changeFavicon('favicon.ico');
+		}
+	}
+	if(elements === undefined) elements = document.getElementsByTagName("*");
+	if(!elements.length) elements = [elements];
 	if(!modeStates[c]) {
 		if(typeof modeStates[c] === 'undefined') modes.push(c);
 		modeStates[c] = true;
-		changeFavicon('night-favicon.ico');
 	} else {
 		modeStates[c] = false;
-		changeFavicon('favicon.ico');
 	}
-	var elements = document.getElementsByTagName('*');
 	var regExpString = '';
 	for(var i = 0; i < c.length; i ++) {
 		if(i < c.length - 1) {

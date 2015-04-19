@@ -1,22 +1,24 @@
-function GameManager(size, InputManager, Actuator, StorageManager) {
+function GameManager(size, InputManager, Actuator, StorageManager, PopupManager) {
   this.size           = size; // Size of the grid
   this.inputManager   = new InputManager;
   this.storageManager = new StorageManager;
   this.actuator       = new Actuator;
+  this.popupManager   = new PopupManager(this);
 
   this.startTiles     = 2;
 
   this.inputManager.on("move", this.move.bind(this));
-  this.inputManager.on("restart", this.restart.bind(this));
+  this.inputManager.on("restart", this.confirmRestart.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
-
-  this.loaded = false;
+  this.inputManager.on("save", this.saveState.bind(this));
+  this.inputManager.on("load", this.loadState.bind(this));
   
   this.setup();
 }
 
-GameManager.prototype.onLoad = function() {
-	this.storageManager.loadBookmarks();
+GameManager.prototype.refreshBookmarks = function() {
+	console.log("hi");
+	/*this.storageManager.loadBookmarks();
 	var bookmarkKeys = this.storageManager.bookmarkKeys;
 	var test = document.getElementById("test");
 	test.innerHTML = "SAVES<br>"
@@ -41,7 +43,15 @@ GameManager.prototype.onLoad = function() {
 		}).bind(this);
 		test.appendChild(el);
 	}).bind(this);
-	this.loaded = true;
+	this.loaded = true;*/
+};
+
+GameManager.prototype.saveState = function() {
+	this.refreshBookmarks();
+};
+
+GameManager.prototype.loadState = function() {
+	this.refreshBookmarks();
 };
 
 // Restart the game
@@ -49,6 +59,10 @@ GameManager.prototype.restart = function () {
   this.storageManager.clearGameState();
   this.actuator.continueGame(); // Clear the game won/lost message
   this.setup();
+};
+
+GameManager.prototype.confirmRestart = function() {
+	this.popupManager.activate("confirm");
 };
 
 // Keep playing after winning (allows going over 2048)
@@ -64,7 +78,6 @@ GameManager.prototype.isGameTerminated = function () {
 
 // Set up the game
 GameManager.prototype.setup = function () {
-	if(!this.loaded) this.onLoad();
   var previousState = this.storageManager.getGameState();
 	
   // Reload the game from a previous game if present

@@ -59,11 +59,14 @@ KeyboardInputManager.prototype.listen = function () {
 	//http://stackoverflow.com/questions/2166771/javascript-key-listener-disabled-when-inside-a-text-form
 	var target = event.target || event.srcElement;
     var targetTagName = (target.nodeType == 1) ? target.nodeName.toUpperCase() : "";
+	var popup = document.getElementById("overlay");
     if (!modifiers && !/INPUT|SELECT|TEXTAREA/.test(targetTagName)) {
-      if (mapped !== undefined) {
+      if (mapped !== undefined && popup.className.indexOf("hidden") !== -1) {
         event.preventDefault();
         self.emit("move", mapped);
-      }
+      } else {
+		 event.preventDefault();
+	  }
     }
 
     // R key restarts the game
@@ -76,6 +79,8 @@ KeyboardInputManager.prototype.listen = function () {
   this.bindButtonPress(".retry-button", this.restart);
   this.bindButtonPress(".restart-button", this.restart);
   this.bindButtonPress(".keep-playing-button", this.keepPlaying);
+  this.bindButtonPress("#save", this.save);
+  this.bindButtonPress("#load", this.load);
 
   // Respond to swipe events
   var touchStartClientX, touchStartClientY;
@@ -139,6 +144,16 @@ KeyboardInputManager.prototype.restart = function (event) {
 KeyboardInputManager.prototype.keepPlaying = function (event) {
   event.preventDefault();
   this.emit("keepPlaying");
+};
+
+KeyboardInputManager.prototype.save = function(event) {
+	event.preventDefault();
+	this.emit("save");
+};
+
+KeyboardInputManager.prototype.load = function(event) {
+	event.preventDefault();
+	this.emit("load");
 };
 
 KeyboardInputManager.prototype.bindButtonPress = function (selector, fn) {
