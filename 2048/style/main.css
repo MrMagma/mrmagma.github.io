@@ -972,7 +972,7 @@ html body #overlay a.button.no:hover {
 	height:30%;
 }
 
-.button {
+.container > .button {
 	text-decoration:none;
 	border-radius:3px;
 	text-align:center;
