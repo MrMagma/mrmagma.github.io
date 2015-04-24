@@ -945,6 +945,7 @@ html body #overlay a.button.no:hover {
 
 #overlay input[type=text] {
 	width:40%;
+	height:1em;
 	font-size:1em;
 	padding:5px;
 	border-radius:10px;
@@ -964,12 +965,13 @@ html body #overlay a.button.no:hover {
 	overflow:hidden;
 }
 
-#bookmark-container {
+.bookmark-container {
 	margin:0em auto 0.5em auto;
 	background:rgba(0, 0, 0, 0.1);
 	display:block;
 	width:70%;
 	height:30%;
+	overflow-y:scroll;
 }
 
 .container > .button {
@@ -989,4 +991,14 @@ html body #overlay a.button.no:hover {
 
 .button:hover {
 	text-shadow:none;
+}
+
+html body #overlay .popup .button.no-click {
+	background:#757575;
+	color:#CFCFCF;
+}
+
+html body #overlay .popup .button.no-click:hover {
+	background:#757575;
+	color:#CFCFCF;
 }

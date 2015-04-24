@@ -98,17 +98,27 @@
 				<h2>Are you sure?</h2>
 				<p>Are you sure you want to start a new game without saving?</p>
 				<p>Starting a new game without saving will remove your progress on the current game.</p>
-				<p>(Saving the game is not currently implemented)</p>
 				<a class="no button">Cancel</a>
 				<a class="yes button">New Game</a>
 			</div>
 			<div id="prompt" class="popup hidden">
 				<h2>Save the current game state</h2>
-				<div id="bookmark-container">
+				<p>Current saves</p>
+				<div class="bookmark-container">
 				</div>
-				<p>Save as: <input type="text" id="answer"></p>
+				<p>Save as: <input type="text" id="save-as"></p>
 				<a class="no button">Cancel</a>
-				<a class="yes button">Okay</a>
+				<a class="yes button no-click">Save</a>
+			</div>
+			<div id="load-popup" class="popup hidden">
+				<h2>Load a saved game</h2>
+				<p>Select an item in the list below or type the name of your save into the box below</p>
+				<div class="bookmark-container">
+				</div>
+				<p id="preview"></p>
+				<p>Load: <input type="text" id="load-key"></p>
+				<a class="no button">Cancel</a>
+				<a class="yes button no-click">Load</a>
 			</div>
 		</div>
 		

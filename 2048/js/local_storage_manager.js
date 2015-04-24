@@ -24,6 +24,7 @@ function LocalStorageManager() {
   this.bookmarksKey     = "bookmarks";
   this.bookmarks = {};
   this.bookmarkKeys = [];
+  this.bookMarksLoaded = false;
 
   var supported = this.localStorageSupported();
   this.storage = supported ? window.localStorage : window.fakeStorage;
@@ -67,11 +68,14 @@ LocalStorageManager.prototype.clearGameState = function () {
 
 //Bookmark stuffs
 LocalStorageManager.prototype.loadBookmarks = function() {
-	var bookmarksJSON = this.storage.getItem(this.bookmarksKey);
-	this.bookmarks = bookmarksJSON ? JSON.parse(bookmarksJSON) : {};
-	for(var i in this.bookmarks) {
-		this.bookmarkKeys.push(i);
+	if(!this.bookmarksLoaded) {
+		var bookmarksJSON = this.storage.getItem(this.bookmarksKey);
+		this.bookmarks = bookmarksJSON ? JSON.parse(bookmarksJSON) : {};
+		for(var i in this.bookmarks) {
+			this.bookmarkKeys.push(i);
+		}
 	}
+	this.bookmarksLoaded = true;
 };
 
 LocalStorageManager.prototype.syncBookmarks = function() {
@@ -80,12 +84,12 @@ LocalStorageManager.prototype.syncBookmarks = function() {
 
 LocalStorageManager.prototype.addBookmark = function(n, gameState) {
 	this.bookmarks[n] = JSON.stringify(gameState);
-	this.bookmarkKeys.push(n);
+	if(this.bookmarkKeys.indexOf(n) === -1) this.bookmarkKeys.push(n);
 	this.syncBookmarks();
 };
 
 LocalStorageManager.prototype.loadBookmark = function(n) {
-	return this.bookmarks[n];
+	return JSON.parse(this.bookmarks[n]);
 };
 
 LocalStorageManager.prototype.deleteBookmark = function(n) {

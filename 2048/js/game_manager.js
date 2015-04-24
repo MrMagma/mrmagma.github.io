@@ -1,3 +1,9 @@
+/*
+  TODO:
+  Make confirmRestart smarter so it doesn't ask if you want to save when you already have
+  Add a confirmation for overwriting a save file
+  Add a confirmation for loading a save game without saving the current game
+ */
 function GameManager(size, InputManager, Actuator, StorageManager, PopupManager) {
   this.size           = size; // Size of the grid
   this.inputManager   = new InputManager;
@@ -17,41 +23,45 @@ function GameManager(size, InputManager, Actuator, StorageManager, PopupManager)
 }
 
 GameManager.prototype.refreshBookmarks = function() {
-	console.log("hi");
-	/*this.storageManager.loadBookmarks();
-	var bookmarkKeys = this.storageManager.bookmarkKeys;
-	var test = document.getElementById("test");
-	test.innerHTML = "SAVES<br>"
-	for(var i = 0; i < bookmarkKeys.length; i ++) {
-		var key = bookmarkKeys[i];
-		var el = document.createElement("a");
-		el.innerHTML = bookmarkKeys[i] + "<br>";
-		el.onclick = (function() {
-			this.storageManager.loadBookmark(key);
-		}).bind(this);
-		test.appendChild(el);
-	}
-	var snappy = document.getElementById("snap");
-	snappy.onclick = (function() {
-		var input = document.getElementById("input");
-		var key = input.value;
-		this.storageManager.addBookmark(key, this.serialize());
-		var el = document.createElement("a");
-		el.innerHTML = key + "<br>";
-		el.onclick = (function() {
-			this.storageManager.loadBookmark(key);
-		}).bind(this);
-		test.appendChild(el);
+	this.storageManager.loadBookmarks();
+	var load = (function(event) {
+		this.popupManager.popups.loadKey.value = event.target.textContent;
+		var yesButton = this.popupManager.popups.load.getElementsByClassName("yes")[0];
+		if(hasClass(yesButton, "no-click")) toggleClass("no-click", yesButton);
 	}).bind(this);
-	this.loaded = true;*/
+	var save = (function(event) {
+		this.popupManager.popups.saveAs.value = event.target.textContent;
+		var yesButton = this.popupManager.popups.prompt.getElementsByClassName("yes")[0];
+		if(hasClass(yesButton, "no-click")) toggleClass("no-click", yesButton);
+	}).bind(this);
+	var bookmarkKeys = this.storageManager.bookmarkKeys;
+	var containers = document.getElementsByClassName("bookmark-container");
+	for(var i = 0; i < containers.length; i ++) {
+		var container = containers[i];
+		container.innerHTML = "";
+		for(var n = 0; n < bookmarkKeys.length; n ++) {
+			var key = bookmarkKeys[n];
+			var el = document.createElement("a");
+			el.innerHTML = key + "<br>";
+			if(containers[i].parentNode.id === "load-popup") {
+				el.onclick = load;
+			} else {
+				el.onclick = save;
+			}
+			container.appendChild(el);
+		}
+	}
+	this.loaded = true;
 };
 
 GameManager.prototype.saveState = function() {
+	this.popupManager.activate("prompt");
 	this.refreshBookmarks();
 };
 
 GameManager.prototype.loadState = function() {
 	this.refreshBookmarks();
+	this.popupManager.activate("load");
 };
 
 // Restart the game
@@ -76,18 +86,24 @@ GameManager.prototype.isGameTerminated = function () {
   return this.over || (this.won && !this.keepPlaying);
 };
 
+GameManager.prototype.setState = function(s) {
+	this.grid        = new Grid(s.grid.size,
+                                s.grid.cells); // Reload grid
+    this.score       = s.score;
+    this.over        = s.over;
+    this.won         = s.won;
+    this.keepPlaying = s.keepPlaying;
+	this.actuate();
+};
+
 // Set up the game
 GameManager.prototype.setup = function () {
   var previousState = this.storageManager.getGameState();
 	
   // Reload the game from a previous game if present
   if (previousState) {
-    this.grid        = new Grid(previousState.grid.size,
-                                previousState.grid.cells); // Reload grid
-    this.score       = previousState.score;
-    this.over        = previousState.over;
-    this.won         = previousState.won;
-    this.keepPlaying = previousState.keepPlaying;
+    this.setState(previousState);
+	return;
   } else {
     this.grid        = new Grid(this.size);
     this.score       = 0;
