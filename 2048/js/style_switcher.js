@@ -17,6 +17,7 @@ function toggleClass(c, elements) {
 	if(elements === undefined) elements = document.getElementsByTagName("*");
 	if(!elements.length) elements = [elements];
 	modeStates[c] = !modeStates[c];
+	if(modes.indexOf(c) === -1) modes.push(c);
 	var regExpString = '';
 	for(var i = 0; i < c.length; i ++) {
 		if(i < c.length - 1) {

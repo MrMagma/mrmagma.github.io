@@ -64,14 +64,13 @@ KeyboardInputManager.prototype.listen = function () {
       if (mapped !== undefined && popup.className.indexOf("hidden") !== -1) {
         event.preventDefault();
         self.emit("move", mapped);
+		// R key restarts the game
+		if (!modifiers && event.which === 82) {
+		  self.restart.call(self, event);
+		}
       } else {
 		 event.preventDefault();
 	  }
-    }
-
-    // R key restarts the game
-    if (!modifiers && event.which === 82) {
-      self.restart.call(self, event);
     }
   });
 

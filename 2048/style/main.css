@@ -1075,3 +1075,7 @@ html body #overlay .popup .button.no-click:hover {
 	background:#757575;
 	color:#CFCFCF;
 }
+
+.retry-button:hover, .retry-button.night:hover {
+	text-shadow:none;
+}
