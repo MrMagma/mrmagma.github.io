@@ -16,12 +16,7 @@ function toggleClass(c, elements) {
 	}
 	if(elements === undefined) elements = document.getElementsByTagName("*");
 	if(!elements.length) elements = [elements];
-	if(!modeStates[c]) {
-		if(typeof modeStates[c] === 'undefined') modes.push(c);
-		modeStates[c] = true;
-	} else {
-		modeStates[c] = false;
-	}
+	modeStates[c] = !modeStates[c];
 	var regExpString = '';
 	for(var i = 0; i < c.length; i ++) {
 		if(i < c.length - 1) {

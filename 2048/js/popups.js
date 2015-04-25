@@ -2,7 +2,6 @@ var PopupManager = function(gameManager) {
 	this.gameManager = gameManager;
 	this.popups = {
 		overlay:document.getElementById("overlay"),
-		alert:document.getElementById("alert"),
 		confirm:document.getElementById("confirm"),
 		prompt:document.getElementById("prompt"),
 		load:document.getElementById("load-popup"),
@@ -11,8 +10,7 @@ var PopupManager = function(gameManager) {
 		active:null
 	};
 	toggleClass("hidden",
-		[this.popups.alert,
-		this.popups.confirm,
+		[this.popups.confirm,
 		this.popups.prompt,
 		this.popups.overlay,
 		this.popups.load]);

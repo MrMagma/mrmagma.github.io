@@ -974,6 +974,71 @@ html body #overlay a.button.no:hover {
 	overflow-y:scroll;
 }
 
+.bookmark-container > a {
+	display:block;
+	width:100%;
+}
+
+.bookmark-container > a:hover { 	
+	/* IE10 Consumer Preview */ 
+	background-image: -ms-linear-gradient(right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
+
+	/* Mozilla Firefox */ 
+	background-image: -moz-linear-gradient(right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
+
+	/* Opera */ 
+	background-image: -o-linear-gradient(right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
+
+	/* Webkit (Safari/Chrome 10) */ 
+	background-image: -webkit-gradient(linear, right top, left top, color-stop(0, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(0, 0, 0, 0.1)), color-stop(1, rgba(0, 0, 0, 0)));
+
+	/* Webkit (Chrome 11+) */ 
+	background-image: -webkit-linear-gradient(right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
+
+	/* W3C Markup, IE10 Release Preview */ 
+	background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
+}
+
+.bookmark-container.night > a:hover { 	
+	/* IE10 Consumer Preview */ 
+	background-image: -ms-linear-gradient(right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+
+	/* Mozilla Firefox */ 
+	background-image: -moz-linear-gradient(right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+
+	/* Opera */ 
+	background-image: -o-linear-gradient(right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+
+	/* Webkit (Safari/Chrome 10) */ 
+	background-image: -webkit-gradient(linear, right top, left top, color-stop(0, rgba(255, 255, 255, 0)), color-stop(0.5, rgba(255, 255, 255, 0.1)), color-stop(1, rgba(255, 255, 255, 0)));
+
+	/* Webkit (Chrome 11+) */ 
+	background-image: -webkit-linear-gradient(right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+
+	/* W3C Markup, IE10 Release Preview */ 
+	background-image: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+}
+
+body #overlay.night a {
+	color: #80CCFF;
+}
+
+body #overlay.night a:hover {
+	text-shadow:0px 0px 10px #FFF;
+}
+
+.button {
+	transition-property: background, color;
+	transition-duration: 1s, 1s;
+	transition-timing-function:ease-in-out;
+	-webkit-transition-property: background, color;
+	-webkit-transition-duration: 1s, 1s;
+	-webkit-transition-timing-function:ease-in-out;
+	-moz-transition-property: background, color;
+	-moz-transition-duration: 1s, 1s;
+	-moz-transition-timing-function:ease-in-out;
+}
+
 .container > .button {
 	text-decoration:none;
 	border-radius:3px;
@@ -990,6 +1055,14 @@ html body #overlay a.button.no:hover {
 }
 
 .button:hover {
+	text-shadow:none;
+}
+
+.container > .button.night {
+	background:#66A3CC;
+}
+
+.button.night:hover {
 	text-shadow:none;
 }
 
