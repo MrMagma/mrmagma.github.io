@@ -3,27 +3,39 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Joshua Gammage</title>
+
+		<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto' type='text/css'>
 		<link rel="stylesheet" href="styles/main.css" type="text/css"/>
+		<link rel="stylesheet" href="resources/font-awesome-4.4.0/css/font-awesome.min.css">
+
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
 	</head>
 	<body>
-		<div id="rotator-test"></div>
-		<div id="rotator">
-			<div id="bio" class="planet">
+		<div class="nav-bar-top no-select">
+			<div class="nav-bar-top-shader"></div>
+
+			<div class="nav-bar-top-icons cursor-default">
+				<a title="My Google+" href="https://plus.google.com/+JoshuaGammage" target="_blank" class="nav-icon" style="font-size: 1.25em"><i class="fa fa-google-plus"></i></a>
+				<a title="Stalk me on Twitter" href="https://twitter.com/FlamingMagma" target="_blank" class="nav-icon"><i class="fa fa-twitter"></i></a>
+				<a title="Place where I pretend to work" href="https://github.com/JavascriptFTW" target="_blank" class="nav-icon"><i class="fa fa-github"></i></a>
 			</div>
-			<div id="projects" class="planet"></div>
-			<div id="skills" class="planet"></div>
-			<div id="games" class="planet"></div>
-			<div id="examples" class="planet"></div>
-			<div id="content">
-				<p class="heading">About Me</p>
-				<p>I am a male homo sapien who enjoys programming, making games, and being flat out crazy.</p>
-				<p>I was born and raised on planet Earth during the Information Era and think that it would be really cool if you're reading this sometime after 2100.</p>
-				<p class="heading">Projects That I've Made/Contributed To</p>
-				<p><a href="2048/index.html">2048</a> - I added some features that were requested but were too far out to make it into the official version</p>
-				<p>More coming as I do them!</p>
+
+			<div class="nav-bar-controls cursor-default">
+				<a href="javascript: void(0);" title="Close frame" id="exit-frame" class="nav-icon"><i class="fa fa-times"></i></a>
+				<a href="javascript: void(0);" title="Back to top" id="unscroll-frame" class="nav-icon"><i class="fa fa-chevron-up"></i></a>
 			</div>
 		</div>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+		<div class="title-container no-select cursor-default">
+			<h1 class="title cursor-default">Joshua Gammage</h1>
+			<div class="bubble-container cursor-default"></div>
+		</div>
+
+		<div class="frame-container no-select cursor-default"></div>
+		<div id="scroll-catcher" class="no-select cursor-default"></div>
+
+		<script type="text/javascript" src="scripts/inheritance.js"></script>
 		<script type="text/javascript" src="scripts/main.js"></script>
 	</body>
 </html>
