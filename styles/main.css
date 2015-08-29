@@ -4,7 +4,7 @@
 }
 
 body {
-	background: #01579B;
+	background: #0288D1;
 	color: #FFF;
 	font-family: "Roboto", sans-serif;
 	overflow-y: hidden;
@@ -40,7 +40,7 @@ body {
 }
 
 .nav-icon {
-	color: white;
+	color: rgba(255, 255, 255, 0.7);
 	display: inline;
 	margin-left: 0.125em;
 	margin-right: 0.20em;
@@ -55,7 +55,7 @@ body {
 	        border-radius: 50%;
 
 	position: absolute;
-	border: 0.313em solid rgba(255, 255, 255, 0.3);
+	border: 0.313em solid rgba(255, 255, 255, 0.38);
 }
 
 div.bubble, .bubble .bubble-title {
@@ -101,7 +101,7 @@ div.bubble, .bubble .bubble-title {
 .title-sub {
 	text-align: center;
 	font-size: 2.2em;
-	color: rgba(255, 255, 255, 0.3);
+	color: rgba(255, 255, 255, 0.38);
 }
 
 .frame-container {
@@ -128,10 +128,6 @@ div.bubble, .bubble .bubble-title {
 	left: 0;
 	position: absolute;
 	width: 100%;
-
-	-webkit-box-shadow: 0px 0px 46px 3px rgba(0,0,0,1);
-	   -moz-box-shadow: 0px 0px 46px 3px rgba(0,0,0,1);
-	        box-shadow: 0px 0px 46px 3px rgba(0,0,0,1);
 }
 
 #scroll-catcher {
@@ -159,6 +155,6 @@ div.bubble, .bubble .bubble-title {
 	cursor: default;
 }
 
-.cursor-default *:not(cursor-default) {
+.cursor-default *:not(cursor-default, cursor-default *) {
 	cursor: auto;
 }

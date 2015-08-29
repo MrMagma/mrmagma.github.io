@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
-	const degRadConst = Math.PI * 2;
+	const DEG_RAD_CONST = Math.PI * 2;
+	const SCROLL_COEFF = 0.05;
 
 
 	var $window = $(window);
@@ -99,7 +100,7 @@ $(document).ready(function() {
 
 			this.source = cfg.source;
 
-			this.cosSeed = Math.random() * 360 / degRadConst;
+			this.cosSeed = Math.random() * 360 / DEG_RAD_CONST;
 
 			this.frameAppended = false;
 
@@ -117,7 +118,7 @@ $(document).ready(function() {
 
 			this.$frameContents = this.$frame.contents().find("html");
 
-			this.wrapperTop = window.innerHeight - parseFloat($frameContainer.css("top")) / 2;
+			this.wrapperTop = parseFloat($frameContainer.css("top"));
 
 			this.$frameWrapper.css({
 				"top": this.wrapperTop + "px"
@@ -191,9 +192,10 @@ $(document).ready(function() {
 			}
 		},
 		addScroll: function(amount) {
+			console.log(this.wrapperTop + " : " + window.innerHeight);
 			if (this.wrapperTop + this.frameHeight < window.innerHeight) return;
 
-			if (-this.frameScroll >= 500 && $unscrollFrame.css("opacity") === "0") {
+			if (-this.frameScroll > 500 && $unscrollFrame.css("opacity") === "0") {
 				$unscrollFrame.animate({
 					"opacity": 1
 				}, 1000);
@@ -258,35 +260,35 @@ $(document).ready(function() {
 		new LinkBubble({
 			x: 30,
 			y: 50,
-			size: 5.5 + Math.random() * 2,
+			size: 7,
 			source: "pages/resume.html",
 			title: "Resume"
 		}),
 		new LinkBubble({
 			x: 40,
 			y: 50,
-			size: 6 + Math.random() * 2,
+			size: 7.5,
 			source: "pages/about.html",
 			title: "About Me"
 		}),
 		new LinkBubble({
 			x: 50,
 			y: 50,
-			size: 5 + Math.random() * 2,
+			size: 6.5,
 			source: "pages/blog.html",
 			title: "My Blog"
 		}),
 		new LinkBubble({
 			x: 60,
 			y: 50,
-			size: 5.5 + Math.random() * 2,
+			size: 7,
 			source: "pages/work.html",
 			title: "My Work"
 		}),
 		new LinkBubble({
 			x: 70,
 			y: 50,
-			size: 6.5 + Math.random() * 2,
+			size: 7.5,
 			source: "pages/contact.html",
 			title: "Contact Me"
 		})
@@ -323,8 +325,7 @@ $(document).ready(function() {
 
 	$body.mousewheel(function(event) {
 		if (activeFrame) {
-			var scrollAmount = event.originalEvent.wheelDelta / 20;
-		    scrollMomentum += scrollAmount;
+			scrollMomentum += event.originalEvent.wheelDelta * SCROLL_COEFF;
 		}
 	});
 
