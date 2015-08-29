@@ -33,6 +33,19 @@ $(document).ready(function() {
 
 	var scrollMomentum = 0;
 
+	var subheadMsg = [
+		"Inventor of the potatoe",
+		"Homosapien extroardinaire",
+		"Your best nightmare",
+		"Your worst best friend",
+		"LOL",
+		"A cat",
+		"Not an alien",
+		"Java !== JavaScript",
+		"The meta guy",
+		"..."
+	];
+
 
 
 	var Bubble = Class.extend({
@@ -307,7 +320,11 @@ $(document).ready(function() {
 		if (activeFrame && activeFrame.scrolled) {
 			activeFrame.unscroll();
 		}
-	})
+	});
+
+	$subhead.click(function() {
+		$subhead.text(subheadMsg[Math.floor(Math.random() * subheadMsg.length)])
+	});
 
 
 
