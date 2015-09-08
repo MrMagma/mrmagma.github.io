@@ -11,7 +11,7 @@ $(document).ready(function() {
 	var $titleContainer = $(".title-container");
 
 	var $head = $(".title");
-	var $subhead = $("<p class='title-sub'>Inventor of the potatoe</p>");
+	var $subhead = $("<p class='title-sub'>Inventor of the potato</p>");
 
 	$titleContainer.append($subhead);
 	$body.append($titleContainer);
@@ -34,7 +34,7 @@ $(document).ready(function() {
 	var scrollMomentum = 0;
 
 	var subheadMsg = [
-		"Inventor of the potatoe",
+		"Inventor of the potato",
 		"Homosapien extroardinaire",
 		"Your best nightmare",
 		"Your worst best friend",
@@ -173,7 +173,7 @@ $(document).ready(function() {
 			// Magicks!
 			this.animateIn();
 
-			$exitFrame.animate({
+			$exitFrame.stop().animate({
 				"opacity": 1
 			}, 1000);
 			$exitFrame.css("cursor", "pointer");
@@ -254,11 +254,13 @@ $(document).ready(function() {
 			}.bind(this));
 		},
 		update: function() {
-			var frameDocHeight = this.$frame.contents().find("html").height();
+			if (this.frameAppended) {
+				var frameDocHeight = this.$frame.contents().find("html").height();
 
-			if (this.frameHeight !== frameDocHeight) {
-				this.frameHeight = frameDocHeight;
-				this.$frame.height(frameDocHeight);
+				if (this.frameHeight !== frameDocHeight) {
+					this.frameHeight = frameDocHeight;
+					this.$frame.height(frameDocHeight);
+				}
 			}
 
 			this.$frame.css("top", this.frameScroll + "px");
@@ -274,35 +276,35 @@ $(document).ready(function() {
 			x: 30,
 			y: 50,
 			size: 7,
-			source: "pages/resume.html",
+			source: "resume.html",
 			title: "Resume"
 		}),
 		new LinkBubble({
 			x: 40,
 			y: 50,
 			size: 7.5,
-			source: "pages/about.html",
+			source: "about.html",
 			title: "About Me"
 		}),
 		new LinkBubble({
 			x: 50,
 			y: 50,
 			size: 6.5,
-			source: "pages/blog.html",
+			source: "blog/index.html",
 			title: "My Blog"
 		}),
 		new LinkBubble({
 			x: 60,
 			y: 50,
 			size: 7,
-			source: "pages/work.html",
+			source: "work.html",
 			title: "My Work"
 		}),
 		new LinkBubble({
 			x: 70,
 			y: 50,
 			size: 7.5,
-			source: "pages/contact.html",
+			source: "contact.html",
 			title: "Contact Me"
 		})
 	];
