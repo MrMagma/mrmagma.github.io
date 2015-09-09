@@ -57,6 +57,10 @@ body {
 	color: rgba(255, 255, 255, 1);
 }
 
+#google-icon {
+	font-size: 1.25em
+}
+
 .bubble {
 	-webkit-border-radius: 50%;
 	   -moz-border-radius: 50%;
@@ -105,6 +109,10 @@ div.bubble, .bubble .bubble-title {
 	   -moz-transition: top 1.7s ease;
 	     -o-transition: top 1.7s ease;
 	        transition: top 1.7s ease;
+}
+
+.title-container.up {
+	top: 5em;
 }
 
 .title {
@@ -173,4 +181,68 @@ div.bubble, .bubble .bubble-title {
 
 .cursor-default *:not(cursor-default, cursor-default *) {
 	cursor: auto;
+}
+
+@media (max-width: 1000px) {
+	.nav-icon {
+		font-size: 2.5em;
+		margin-left: 0.25em;
+		margin-right: 0.40em;
+	}
+
+	#google-icon {
+		font-size: 2em;
+	}
+
+	.title-container.up {
+		top: 5em;
+	}
+
+	.frame-container {
+		top: 35em;
+		left: 7%;
+		right: 7%;
+	}
+}
+
+@media (max-width: 750px) {
+	body {
+		font-size: 0.5em;
+	}
+
+	.title-container {
+		top: 12em;
+	}
+
+	.title-container.up {
+		top: 4em;
+	}
+
+	.title {
+		font-size: 4em;
+	}
+
+	.title-sub {
+
+	}
+
+	.bubble-title {
+		font-size: 1.75em;
+	}
+
+	.nav-icon {
+		font-size: 3em;
+		margin-left: 0.25em;
+		margin-right: 0.40em;
+	}
+
+	#google-icon {
+		font-size: 2.5em;
+	}
+
+	.frame-container {
+		top: 31em;
+		left: 7%;
+		right: 7%;
+	}
 }

@@ -52,19 +52,19 @@ $(document).ready(function() {
 		init: function(cfg) {
 			this.$element = $("<div class='bubble'></div>");
 			this.$title = $("<p class='bubble-title'>" + cfg.title + "</p>");
+			this.titleText = cfg.title;
 
 			this.$element.append(this.$title);
 			$bubbleContainer.append(this.$element);
 
 			this.relPos = {
 				x: cfg.x,
-				y: cfg.y,
 				size: cfg.size
 			};
 
 			this.pxPos = {
 				x: null,
-				y: null,
+				y: 0,
 				size: null
 			};
 
@@ -81,19 +81,33 @@ $(document).ready(function() {
 
 		},
 		calcPos: function() {
-			this.pxPos.size = this.relPos.size / 100 * parseFloat(this.$element.parent().width());
+			this.pxPos.size = parseFloat(this.$element.width());
 			this.pxPos.x = this.relPos.x / 100 * parseFloat(this.$element.parent().width()) - this.pxPos.size / 2;
 			this.pxPos.y = 0;
 
+			this.pxPos.x = window.innerWidth / 2 + (this.pxPos.x - window.innerWidth / 2) * (1 + 1/window.innerWidth * window.innerHeight / 10);
+
+			var elementEmWidth = Math.max(Math.min(this.titleText.length + 1, 10), 8);
+			if (window.innerWidth < 1000) {
+				if ($bubbleContainer.children().length % 2 === 0) {
+					this.pxPos.y = window.innerHeight * 0.17;
+				}
+
+				this.pxPos.x = window.innerWidth / 2 + (this.pxPos.x - window.innerWidth / 2) * 1.1;
+			}
+
 			this.$element.css({
-				"top": this.pxPos.y + "px",
+				"top": "0px",
 				"left": this.pxPos.x + "px",
-				"width": this.pxPos.size + "px",
-				"height": this.pxPos.size + "px"
+				"width": elementEmWidth + "em",
+				"height": elementEmWidth + "em"
 			});
+
+			var elementSize = parseFloat(this.$element.css("width"));
+
 			this.$title.css({
-				"top": this.pxPos.size / 2 - parseFloat(this.$title.css("height")) / 2,
-				"left": this.pxPos.size / 2 - parseFloat(this.$title.css("width")) / 2
+				"top": elementSize / 2 - parseFloat(this.$title.css("height")) / 2,
+				"left": elementSize / 2 - parseFloat(this.$title.css("width")) / 2
 			});
 		},
 		update: function() {
@@ -145,7 +159,7 @@ $(document).ready(function() {
 			this.cosSeed += 0.03;
 			this.cosSeed %= 360;
 			this.$element.css({
-				"top": (this.pxPos.y + Math.cos(this.cosSeed) * this.pxPos.size / 15) + "px"
+				"top": this.pxPos.y + (Math.cos(this.cosSeed) * this.pxPos.size / 15) + "px"
 			});
 		},
 		onClick: function() {
@@ -168,7 +182,7 @@ $(document).ready(function() {
 			}, {
 				duration: 1500
 			});
-			$titleContainer.css("top", "5em");
+			$titleContainer.addClass("up");
 
 			// Magicks!
 			this.animateIn();
@@ -195,7 +209,6 @@ $(document).ready(function() {
 			if (-this.frameScroll > 0) {
 				setTimeout(this._unscroll.bind(this, times), 7)
 			} else {
-				console.log("Shtuff!");
 				this.frameScroll = 0;
 				this.scrolled = false;
 				$unscrollFrame.stop().animate({
@@ -205,9 +218,8 @@ $(document).ready(function() {
 			}
 		},
 		addScroll: function(amount) {
-			console.log(this.wrapperTop + " : " + window.innerHeight);
 			if (this.wrapperTop + this.frameHeight < window.innerHeight) return;
-
+			console.log(this.frameScroll);
 			if (-this.frameScroll > 500 && $unscrollFrame.css("opacity") === "0") {
 				$unscrollFrame.animate({
 					"opacity": 1
@@ -231,7 +243,7 @@ $(document).ready(function() {
 			instant = instant || false;
 			this.$frameWrapper.css("z-index", -1);
 			this.unscroll();
-			$titleContainer.css("top", "18em");
+			$titleContainer.removeClass("up");
 
 			setTimeout(this._deactivate.bind(this), 1500 * instant + 1);
 
@@ -274,35 +286,30 @@ $(document).ready(function() {
 	var bubbles = [
 		new LinkBubble({
 			x: 30,
-			y: 50,
 			size: 7,
 			source: "resume.html",
 			title: "Resume"
 		}),
 		new LinkBubble({
 			x: 40,
-			y: 50,
 			size: 7.5,
 			source: "about.html",
 			title: "About Me"
 		}),
 		new LinkBubble({
 			x: 50,
-			y: 50,
 			size: 6.5,
 			source: "blog/index.html",
 			title: "My Blog"
 		}),
 		new LinkBubble({
 			x: 60,
-			y: 50,
 			size: 7,
 			source: "work.html",
 			title: "My Work"
 		}),
 		new LinkBubble({
 			x: 70,
-			y: 50,
 			size: 7.5,
 			source: "contact.html",
 			title: "Contact Me"
