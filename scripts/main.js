@@ -87,9 +87,13 @@ $(document).ready(function() {
 
 			this.pxPos.x = window.innerWidth / 2 + (this.pxPos.x - window.innerWidth / 2) * (1 + 1/window.innerWidth * window.innerHeight / 10);
 
+			if (this.index === undefined) {
+				this.index = $bubbleContainer.children().length - 1;
+			}
+
 			var elementEmWidth = Math.max(Math.min(this.titleText.length + 1, 10), 8);
-			if (window.innerWidth < 1000) {
-				if ($bubbleContainer.children().length % 2 === 0) {
+			if (window.innerWidth < 1100) {
+				if (this.index % 2 === 0) {
 					this.pxPos.y = window.innerHeight * 0.17;
 				}
 
