@@ -355,5 +355,11 @@ $(document).ready(function() {
 		}
 	});
 
-	setTimeout(updatePage, 1)
+	setTimeout(updatePage, 1);
+
+	$(window).resize(function() {
+		for (var i = 0; i < bubbles.length; i ++) {
+			bubbles[i].calcPos();
+		}
+	})
 });
