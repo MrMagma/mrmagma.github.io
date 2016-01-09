@@ -48,8 +48,8 @@ $(document).ready(function() {
 
 
 
-	var Bubble = Class.extend({
-		init: function(cfg) {
+	class Bubble {
+		constructor(cfg) {
 			this.$element = $("<div class='bubble'></div>");
 			this.$title = $("<p class='bubble-title'>" + cfg.title + "</p>");
 			this.titleText = cfg.title;
@@ -73,14 +73,14 @@ $(document).ready(function() {
 			this.calcPos();
 
 			this.uid = Date.now();
-		},
-		onClickWrapper: function() {
+		}
+		onClickWrapper() {
 			this.onClick();
-		},
-		onClick: function() {
+		}
+		onClick() {
 
-		},
-		calcPos: function() {
+		}
+		calcPos() {
 			this.pxPos.size = parseFloat(this.$element.width());
 			this.pxPos.x = this.relPos.x / 100 * parseFloat(this.$element.parent().width()) - this.pxPos.size / 2;
 			this.pxPos.y = 0;
@@ -113,11 +113,11 @@ $(document).ready(function() {
 				"top": elementSize / 2 - parseFloat(this.$title.css("height")) / 2,
 				"left": elementSize / 2 - parseFloat(this.$title.css("width")) / 2
 			});
-		},
-		update: function() {
+		}
+		update() {
 			
 		}
-	});
+	}
 
 
 
@@ -125,9 +125,9 @@ $(document).ready(function() {
 
 
 
-	var LinkBubble = Bubble.extend({
-		init: function(cfg) {
-			this._super(cfg);
+	class LinkBubble extends Bubble {
+		constructor(cfg) {
+			super(cfg);
 
 			this.source = cfg.source;
 
@@ -158,15 +158,15 @@ $(document).ready(function() {
 			this.frameScroll = 0;
 
 			this.frameHeight = 0;
-		},
-		drift: function() {
+		}
+		drift() {
 			this.cosSeed += 0.03;
 			this.cosSeed %= 360;
 			this.$element.css({
 				"top": this.pxPos.y + (Math.cos(this.cosSeed) * this.pxPos.size / 15) + "px"
 			});
-		},
-		onClick: function() {
+		}
+		onClick() {
 			this.$frameWrapper.css("z-index", 1);
 
 			if (activeFrame && activeFrame.uid !== this.uid) {
@@ -195,18 +195,18 @@ $(document).ready(function() {
 				"opacity": 1
 			}, 1000);
 			$exitFrame.css("cursor", "pointer");
-		},
-		animateIn: function() {
+		}
+		animateIn() {
 			/* Don't even ask me why this method works. I don't even know, it just works. This scares me */
 			if (parseFloat(this.$frameWrapper.css("top")) > 0) {
 				this.$frameWrapper.css("top", "0px");
 				setTimeout(this.animateIn.bind(this), 1);
 			}
-		},
-		unscroll: function() {
+		}
+		unscroll() {
 			setTimeout(this._unscroll.bind(this), 1)
-		},
-		_unscroll: function(times) {
+		}
+		_unscroll(times) {
 			scrollMomentum = 0;
 			times = times + 1 || 0;
 			this.frameScroll += 1.2 * times;
@@ -220,8 +220,8 @@ $(document).ready(function() {
 				}, 1000);
 				$unscrollFrame.css("cursor", "default");
 			}
-		},
-		addScroll: function(amount) {
+		}
+		addScroll(amount) {
 			if (this.wrapperTop + this.frameHeight < window.innerHeight) return;
 			console.log(this.frameScroll);
 			if (-this.frameScroll > 500 && $unscrollFrame.css("opacity") === "0") {
@@ -242,8 +242,8 @@ $(document).ready(function() {
 			if (-this.frameScroll > 0) {
 				this.scrolled = true;
 			}
-		},
-		deactivate: function(instant) {
+		}
+		deactivate(instant) {
 			instant = instant || false;
 			this.$frameWrapper.css("z-index", -1);
 			this.unscroll();
@@ -259,8 +259,8 @@ $(document).ready(function() {
 				"opacity": 0
 			}, 1000);
 			$exitFrame.css("cursor", "default");
-		},
-		_deactivate: function() {
+		}
+		_deactivate() {
 			this.$frame.animate({
 				"opacity": 0
 			}, 1000, function() {
@@ -268,8 +268,8 @@ $(document).ready(function() {
 					"top": window.innerHeight - parseFloat($frameContainer.css("top")) / 2 + "px"
 				});
 			}.bind(this));
-		},
-		update: function() {
+		}
+		update() {
 			if (this.frameAppended) {
 				var frameDocHeight = this.$frame.contents().find("html").height();
 
@@ -283,7 +283,7 @@ $(document).ready(function() {
 
 			this.drift();
 		}
-	});
+	}
 
 
 
