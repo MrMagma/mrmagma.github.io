@@ -26,11 +26,17 @@ gulp.task("build-scripts", function() {
 
 var postcss = require("gulp-postcss");
 var postcssImport = require("postcss-import");
+var postcssShort = require("postcss-short");
+var postcssCSSNext = require("postcss-cssnext");
+var postcssMixins = require("postcss-sassy-mixins");
 
 gulp.task("build-styles", function() {
     return gulp.src("./src/styles/*.css")
         .pipe(postcss([
-            postcssImport
+            postcssImport,
+            postcssMixins,
+            postcssShort,
+            postcssCSSNext
         ]))
         .pipe(gulp.dest("dist"));
 });
