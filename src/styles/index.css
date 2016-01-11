@@ -166,15 +166,15 @@ div.bubble, .bubble .bubble-title {
 		margin-left: 0.25em;
 		margin-right: 0.40em;
 	}
-
+    
 	#google-icon {
 		font-size: 2em;
 	}
-
+    
 	.title-container.up {
 		top: 5em;
 	}
-
+    
 	.frame-container {
 		top: 35em;
 		left: 7%;
@@ -186,37 +186,37 @@ div.bubble, .bubble .bubble-title {
 	body {
 		font-size: 0.5em;
 	}
-
+    
 	.title-container {
 		top: 12em;
 	}
-
+    
 	.title-container.up {
 		top: 4em;
 	}
-
+    
 	.title {
 		font-size: 4em;
 	}
-
+    
 	.title-sub {
 
 	}
-
+    
 	.bubble-title {
 		font-size: 1.75em;
 	}
-
+    
 	.nav-icon {
 		font-size: 3em;
 		margin-left: 0.25em;
 		margin-right: 0.40em;
 	}
-
+    
 	#google-icon {
 		font-size: 2.5em;
 	}
-
+    
 	.frame-container {
 		top: 31em;
 		left: 7%;

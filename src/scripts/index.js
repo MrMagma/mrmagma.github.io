@@ -53,44 +53,44 @@ $(document).ready(function() {
 			this.$element = $("<div class='bubble'></div>");
 			this.$title = $("<p class='bubble-title'>" + cfg.title + "</p>");
 			this.titleText = cfg.title;
-
+            
 			this.$element.append(this.$title);
 			$bubbleContainer.append(this.$element);
-
+            
 			this.relPos = {
 				x: cfg.x,
 				size: cfg.size
 			};
-
+            
 			this.pxPos = {
 				x: null,
 				y: 0,
 				size: null
 			};
-
+            
 			this.$element.click(this.onClickWrapper.bind(this));
-
+            
 			this.calcPos();
-
+            
 			this.uid = Date.now();
 		}
 		onClickWrapper() {
 			this.onClick();
 		}
 		onClick() {
-
+            
 		}
 		calcPos() {
 			this.pxPos.size = parseFloat(this.$element.width());
 			this.pxPos.x = this.relPos.x / 100 * parseFloat(this.$element.parent().width()) - this.pxPos.size / 2;
 			this.pxPos.y = 0;
-
+            
 			this.pxPos.x = window.innerWidth / 2 + (this.pxPos.x - window.innerWidth / 2) * (1 + 1/window.innerWidth * window.innerHeight / 10);
-
+            
 			if (this.index === undefined) {
 				this.index = $bubbleContainer.children().length - 1;
 			}
-
+            
 			var elementEmWidth = Math.max(Math.min(this.titleText.length + 1, 10), 8);
 			if (window.innerWidth < 1100) {
 				if (this.index % 2 === 0) {
@@ -99,16 +99,16 @@ $(document).ready(function() {
 
 				this.pxPos.x = window.innerWidth / 2 + (this.pxPos.x - window.innerWidth / 2) * 1.1;
 			}
-
+            
 			this.$element.css({
 				"top": "0px",
 				"left": this.pxPos.x + "px",
 				"width": elementEmWidth + "em",
 				"height": elementEmWidth + "em"
 			});
-
+            
 			var elementSize = parseFloat(this.$element.css("width"));
-
+            
 			this.$title.css({
 				"top": elementSize / 2 - parseFloat(this.$title.css("height")) / 2,
 				"left": elementSize / 2 - parseFloat(this.$title.css("width")) / 2
@@ -118,45 +118,45 @@ $(document).ready(function() {
 			
 		}
 	}
-
-
-
+    
+    
+    
 	var activeFrame = null;
-
-
-
+    
+    
+    
 	class LinkBubble extends Bubble {
 		constructor(cfg) {
 			super(cfg);
-
+            
 			this.source = cfg.source;
-
+            
 			this.cosSeed = Math.random() * 360 / DEG_RAD_CONST;
-
+            
 			this.frameAppended = false;
-
+            
 			this.$frameWrapper = $("<div class='frame-wrapper'></div>");
 			this.$frame = $("<iframe class='frame-content'></iframe>");
-
+            
 			this.$frame.attr({
 				/* seamless: "seamless", */
 				frameborder: "0",
 				scrolling: "no",
 				src: this.source
 			})
-
+            
 			this.$frameWrapper.append(this.$frame);
-
+            
 			this.$frameContents = this.$frame.contents().find("html");
-
+            
 			this.wrapperTop = parseFloat($frameContainer.css("top"));
-
+            
 			this.$frameWrapper.css({
 				"top": this.wrapperTop + "px"
 			});
-
+            
 			this.frameScroll = 0;
-
+            
 			this.frameHeight = 0;
 		}
 		drift() {
@@ -168,29 +168,29 @@ $(document).ready(function() {
 		}
 		onClick() {
 			this.$frameWrapper.css("z-index", 1);
-
+            
 			if (activeFrame && activeFrame.uid !== this.uid) {
 				scrollMomentum = 0;
 				activeFrame.deactivate(true);
 			}
-
+            
 			activeFrame = this;
-
+            
 			if (!this.frameAppended) {
 				$frameContainer.append(this.$frameWrapper);
 				this.frameAppended = true;
 			}
-
+            
 			this.$frame.stop().animate({
 				"opacity": "1"
 			}, {
 				duration: 1500
 			});
 			$titleContainer.addClass("up");
-
+            
 			// Magicks!
 			this.animateIn();
-
+            
 			$exitFrame.stop().animate({
 				"opacity": 1
 			}, 1000);
@@ -230,7 +230,7 @@ $(document).ready(function() {
 				}, 1000);
 				$unscrollFrame.css("cursor", "pointer");
 			}
-
+            
 			if (this.frameScroll + amount >= 0) {
 				this.frameScroll = 0;
 			} else if (-(this.frameScroll + amount) > this.frameHeight - 500) {
@@ -238,7 +238,7 @@ $(document).ready(function() {
 			} else {
 				this.frameScroll += amount;
 			}
-
+            
 			if (-this.frameScroll > 0) {
 				this.scrolled = true;
 			}
@@ -248,13 +248,13 @@ $(document).ready(function() {
 			this.$frameWrapper.css("z-index", -1);
 			this.unscroll();
 			$titleContainer.removeClass("up");
-
+            
 			setTimeout(this._deactivate.bind(this), 1500 * instant + 1);
-
+            
 			$exitFrame.animate({
 				"opacity": 0
 			}, 1000);
-
+            
 			$unscrollFrame.stop().animate({
 				"opacity": 0
 			}, 1000);
@@ -272,21 +272,21 @@ $(document).ready(function() {
 		update() {
 			if (this.frameAppended) {
 				var frameDocHeight = this.$frame.contents().find("html").height();
-
+                
 				if (this.frameHeight !== frameDocHeight) {
 					this.frameHeight = frameDocHeight;
 					this.$frame.height(frameDocHeight);
 				}
 			}
-
+            
 			this.$frame.css("top", this.frameScroll + "px");
-
+            
 			this.drift();
 		}
 	}
+    
 
-
-
+    
 	var bubbles = [
 		new LinkBubble({
 			x: 30,
@@ -319,28 +319,28 @@ $(document).ready(function() {
 			title: "Contact Me"
 		})
 	];
-
-
+    
+    
 	$exitFrame.click(function() {
 		scrollMomentum = 0;
 		if (activeFrame) {
 			activeFrame.deactivate();
 		}
 	});
-
+    
 	$unscrollFrame.click(function() {
 		scrollMomentum = 0;
 		if (activeFrame && activeFrame.scrolled) {
 			activeFrame.unscroll();
 		}
 	});
-
+    
 	$subhead.click(function() {
 		$subhead.text(subheadMsg[Math.floor(Math.random() * subheadMsg.length)])
 	});
-
-
-
+    
+    
+    
 	function updatePage() {
 		for (var i = 0; i < bubbles.length; i ++) {
 			bubbles[i].update();
@@ -349,21 +349,21 @@ $(document).ready(function() {
 			activeFrame.addScroll(scrollMomentum);
 			scrollMomentum *= 0.9;
 		}
-
+        
 		setTimeout(updatePage, 10);
 	}
-
+    
 	$body.mousewheel(function(event) {
 		if (activeFrame) {
 			scrollMomentum += event.originalEvent.wheelDelta * SCROLL_COEFF;
 		}
 	});
-
+    
 	setTimeout(updatePage, 1);
-
+    
 	$(window).resize(function() {
 		for (var i = 0; i < bubbles.length; i ++) {
 			bubbles[i].calcPos();
 		}
-	})
+	});
 });
