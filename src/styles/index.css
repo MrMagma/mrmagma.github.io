@@ -146,6 +146,10 @@ div.bubble, .bubble .bubble-title {
 	z-index: -1000000;
 }
 
+.frame-content {
+    box-shadow: 0 0 30px 0 #000;
+}
+
 
 
 .no-select, .no-select  * {

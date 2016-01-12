@@ -222,8 +222,10 @@ $(document).ready(function() {
 			}
 		}
 		addScroll(amount) {
-			if (this.wrapperTop + this.frameHeight < window.innerHeight) return;
-			console.log(this.frameScroll);
+            if (this.wrapperTop + this.frameHeight < window.innerHeight) {
+                return;
+            }
+            
 			if (-this.frameScroll > 500 && $unscrollFrame.css("opacity") === "0") {
 				$unscrollFrame.animate({
 					"opacity": 1
@@ -231,13 +233,17 @@ $(document).ready(function() {
 				$unscrollFrame.css("cursor", "pointer");
 			}
             
-			if (this.frameScroll + amount >= 0) {
-				this.frameScroll = 0;
-			} else if (-(this.frameScroll + amount) > this.frameHeight - 500) {
-				this.frameScroll = -this.frameHeight + 500;
-			} else {
-				this.frameScroll += amount;
-			}
+            this.frameScroll += amount;
+            
+            let pos = this.wrapperTop + this.frameScroll + this.frameHeight;
+            
+            if (pos < window.innerHeight - 20) {
+                this.frameScroll = -this.wrapperTop - this.frameHeight +
+                    (window.innerHeight - 20);
+            } else if (this.frameScroll > 0) {
+                this.frameScroll = 0;
+            }
+            
             
 			if (-this.frameScroll > 0) {
 				this.scrolled = true;
@@ -345,6 +351,7 @@ $(document).ready(function() {
 		for (var i = 0; i < bubbles.length; i ++) {
 			bubbles[i].update();
 		}
+        
 		if (activeFrame) {
 			activeFrame.addScroll(scrollMomentum);
 			scrollMomentum *= 0.9;
