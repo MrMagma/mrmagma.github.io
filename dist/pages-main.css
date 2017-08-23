@@ -17,7 +17,7 @@ p, li, a {
 hr {
 	height: 0;
 	border: 0;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+	border-bottom: 1px solid rgba(0, 0, 0, .12);
 }
 
 a {

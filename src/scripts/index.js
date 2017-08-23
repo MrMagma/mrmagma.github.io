@@ -115,7 +115,7 @@ $(document).ready(function() {
 			});
 		}
 		update() {
-			
+            
 		}
 	}
     
@@ -158,7 +158,12 @@ $(document).ready(function() {
 			this.frameScroll = 0;
             
 			this.frameHeight = 0;
+            
+            this.$frame.load(this.$frameLoad.bind(this))
 		}
+        $frameLoad() {
+            $(this.$frame.contents()).mousewheel(scrollListener);
+        }
 		drift() {
 			this.cosSeed += 0.03;
 			this.cosSeed %= 360;
@@ -233,13 +238,14 @@ $(document).ready(function() {
 				$unscrollFrame.css("cursor", "pointer");
 			}
             
+
             this.frameScroll += amount;
             
             let pos = this.wrapperTop + this.frameScroll + this.frameHeight;
             
             if (pos < window.innerHeight - 20) {
-                this.frameScroll = -this.wrapperTop - this.frameHeight +
-                    (window.innerHeight - 20);
+                console.log("Hi", pos)
+                this.frameScroll = window.innerHeight - 20 - this.wrapperTop - this.frameHeight;
             } else if (this.frameScroll > 0) {
                 this.frameScroll = 0;
             }
@@ -278,7 +284,7 @@ $(document).ready(function() {
 		update() {
 			if (this.frameAppended) {
 				var frameDocHeight = this.$frame.contents().find("html").height();
-                
+                console.log(frameDocHeight)
 				if (this.frameHeight !== frameDocHeight) {
 					this.frameHeight = frameDocHeight;
 					this.$frame.height(frameDocHeight);
@@ -360,12 +366,14 @@ $(document).ready(function() {
 		setTimeout(updatePage, 10);
 	}
     
-	$body.mousewheel(function(event) {
-		if (activeFrame) {
-			scrollMomentum += event.originalEvent.wheelDelta * SCROLL_COEFF;
-		}
-	});
-    
+    function scrollListener(event) {
+        if (activeFrame) {
+            scrollMomentum += event.originalEvent.wheelDelta * SCROLL_COEFF;
+        }
+    }
+
+	$body.mousewheel(scrollListener);
+
 	setTimeout(updatePage, 1);
     
 	$(window).resize(function() {
