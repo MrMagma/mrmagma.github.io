@@ -7,8 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "deploy": "git subtree push --prefix dist/GHIO origin gh-pages"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
