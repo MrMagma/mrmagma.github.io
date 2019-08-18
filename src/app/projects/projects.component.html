@@ -1,0 +1,5 @@
+<div id = "projects">
+    <div class = "project-card-wrapper" *ngFor = "let project of projects">
+        <app-project-card [title] = "project.title" [link] = "project.link" [image] = "project.image"></app-project-card>
+    </div>
+</div>

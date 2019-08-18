@@ -1,0 +1,27 @@
+.project-card
+    position: absolute
+    display: block
+    top: 0
+    left: 0
+    bottom: 0
+    right: 0
+    text-decoration: none
+    color: black
+    box-shadow: 0 0 0 0 black
+    transition: box-shadow 0.25s ease, z-index 0.25s ease
+    z-index: inherit
+    background-repeat: no-repeat
+    background-size: 100%
+
+    &:hover
+        box-shadow: 0 0 5px 0 black
+        z-index: 10
+
+    .project-card-title
+        position: absolute
+        bottom: 0
+        background: white
+        left: 0
+        right: 0
+        line-height: 2em
+        padding: 0 0.5em
